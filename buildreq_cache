@@ -1,4 +1,4 @@
-3.33.92
+3.34.0
 libdazzle-dev
 pkgconfig(libdazzle-1.0)
 pkgconfig(polkit-gobject-1)
