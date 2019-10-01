@@ -4,7 +4,7 @@
 #
 Name     : sysprof
 Version  : 3.34.0
-Release  : 2
+Release  : 3
 URL      : https://download.gnome.org/sources/sysprof/3.34/sysprof-3.34.0.tar.xz
 Source0  : https://download.gnome.org/sources/sysprof/3.34/sysprof-3.34.0.tar.xz
 Summary  : Kernel based performance profiler
@@ -54,7 +54,6 @@ Group: Development
 Requires: sysprof-bin = %{version}-%{release}
 Requires: sysprof-data = %{version}-%{release}
 Provides: sysprof-devel = %{version}-%{release}
-Requires: sysprof = %{version}-%{release}
 Requires: sysprof = %{version}-%{release}
 
 %description dev
@@ -106,7 +105,6 @@ services components for the sysprof package.
 Summary: staticdev components for the sysprof package.
 Group: Default
 Requires: sysprof-dev = %{version}-%{release}
-Requires: sysprof-dev = %{version}-%{release}
 
 %description staticdev
 staticdev components for the sysprof package.
@@ -120,8 +118,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1568213678
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1569965659
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -130,13 +127,14 @@ export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
 export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
 export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
-CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddir
+CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain -Denable-gtk=true -Ddebugdir=/usr/lib/debug -Dhelp=true  builddir
 ninja -v -C builddir
 
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/sysprof
 cp COPYING %{buildroot}/usr/share/package-licenses/sysprof/COPYING
 cp COPYING.gpl-2 %{buildroot}/usr/share/package-licenses/sysprof/COPYING.gpl-2
+cp src/libsysprof-capture/COPYING %{buildroot}/usr/share/package-licenses/sysprof/src_libsysprof-capture_COPYING
 DESTDIR=%{buildroot} ninja -C builddir install
 %find_lang sysprof
 
@@ -271,6 +269,7 @@ DESTDIR=%{buildroot} ninja -C builddir install
 %defattr(0644,root,root,0755)
 /usr/share/package-licenses/sysprof/COPYING
 /usr/share/package-licenses/sysprof/COPYING.gpl-2
+/usr/share/package-licenses/sysprof/src_libsysprof-capture_COPYING
 
 %files services
 %defattr(-,root,root,-)
