@@ -4,7 +4,7 @@
 #
 Name     : sysprof
 Version  : 3.34.1
-Release  : 5
+Release  : 6
 URL      : https://download.gnome.org/sources/sysprof/3.34/sysprof-3.34.1.tar.xz
 Source0  : https://download.gnome.org/sources/sysprof/3.34/sysprof-3.34.1.tar.xz
 Summary  : Kernel based performance profiler
@@ -12,6 +12,7 @@ Group    : Development/Tools
 License  : BSD-2-Clause-Patent GPL-2.0 GPL-3.0
 Requires: sysprof-bin = %{version}-%{release}
 Requires: sysprof-data = %{version}-%{release}
+Requires: sysprof-lib = %{version}-%{release}
 Requires: sysprof-libexec = %{version}-%{release}
 Requires: sysprof-license = %{version}-%{release}
 Requires: sysprof-locales = %{version}-%{release}
@@ -51,9 +52,11 @@ data components for the sysprof package.
 %package dev
 Summary: dev components for the sysprof package.
 Group: Development
+Requires: sysprof-lib = %{version}-%{release}
 Requires: sysprof-bin = %{version}-%{release}
 Requires: sysprof-data = %{version}-%{release}
 Provides: sysprof-devel = %{version}-%{release}
+Requires: sysprof = %{version}-%{release}
 Requires: sysprof = %{version}-%{release}
 
 %description dev
@@ -66,6 +69,17 @@ Group: Documentation
 
 %description doc
 doc components for the sysprof package.
+
+
+%package lib
+Summary: lib components for the sysprof package.
+Group: Libraries
+Requires: sysprof-data = %{version}-%{release}
+Requires: sysprof-libexec = %{version}-%{release}
+Requires: sysprof-license = %{version}-%{release}
+
+%description lib
+lib components for the sysprof package.
 
 
 %package libexec
@@ -105,6 +119,7 @@ services components for the sysprof package.
 Summary: staticdev components for the sysprof package.
 Group: Default
 Requires: sysprof-dev = %{version}-%{release}
+Requires: sysprof-dev = %{version}-%{release}
 
 %description staticdev
 staticdev components for the sysprof package.
@@ -112,13 +127,15 @@ staticdev components for the sysprof package.
 
 %prep
 %setup -q -n sysprof-3.34.1
+cd %{_builddir}/sysprof-3.34.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1571164512
+export SOURCE_DATE_EPOCH=1579024705
+# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -217,8 +234,6 @@ DESTDIR=%{buildroot} ninja -C builddir install
 /usr/include/sysprof-3/sysprof-visualizer.h
 /usr/include/sysprof-3/sysprof-zoom-manager.h
 /usr/include/sysprof-3/sysprof.h
-/usr/lib64/libsysprof-3.so
-/usr/lib64/libsysprof-ui-3.so
 /usr/lib64/pkgconfig/sysprof-3.pc
 /usr/lib64/pkgconfig/sysprof-capture-3.pc
 /usr/lib64/pkgconfig/sysprof-ui-3.pc
@@ -260,6 +275,11 @@ DESTDIR=%{buildroot} ninja -C builddir install
 /usr/share/help/sv/sysprof/introduction.page
 /usr/share/help/sv/sysprof/legal.xml
 /usr/share/help/sv/sysprof/profiling.page
+
+%files lib
+%defattr(-,root,root,-)
+/usr/lib64/libsysprof-3.so
+/usr/lib64/libsysprof-ui-3.so
 
 %files libexec
 %defattr(-,root,root,-)
