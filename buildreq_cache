@@ -1,4 +1,4 @@
-3.36.0
+3.38.0
 libdazzle-dev
 pkgconfig(libdazzle-1.0)
 pkgconfig(libunwind-generic)
