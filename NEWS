@@ -1,3 +1,53 @@
+Overview of changes in Sysprof 3.40.1
+=====================================
+
+ * Fix build system issue which caused symbols from libsysprof-capture.a to leak
+   into the ABI of libraries consuming it. This was due to inheritance of GNU
+   default symbol visibility. A recompilation of those libraries is necessary.
+
+Overview of changes in Sysprof 3.40.0
+=====================================
+
+ * Improve symbol resolving on OSTree-based systems
+ * Translation updates
+
+Overview of changes in Sysprof 3.39.94
+======================================
+
+ * Fix some licenses in headers.
+ * Add API to sysprofd/libsysprof to tweak.
+   /proc/sys/kernel/perf_event_paranoid to improve capture quality.
+   Tooling will now always try to change this value while profiling
+   the system and ignore upon failure.
+ * ftruncate() before overwriting proc files.
+ * GTK aid has been removed as it is always enabled through the
+   use of control-fd now.
+ * Add a new Overlay capture frame type for mapping overlays between
+   the host and the process filesystem namespace.
+ * Use overlays to map podman containers to overlay directories
+ * Use overlays to map flatpak containers to overlay directories for
+   both /app and /usr.
+
+Overview of changes in Sysprof 3.39.92
+======================================
+
+ * Use pic when compiling static libsysprof-capture
+ * Some changes to podman symbol decoding
+ * Handle NULL readers gracefully from capture cursors
+ * Use g_memdup2()
+ * UI tweaks
+ * Translation updates
+
+Overview of changes in Sysprof 3.39.90
+======================================
+
+ * Build fixes for macOS
+ * polkit is optional (again) for sysprof-cli
+ * Various fixes in kernel symbol resolving
+ * Fix build when stack-protector is not used
+ * Support elfparser on some interesting platforms
+ * Translation updates
+
 Overview of changes in Sysprof 3.38.1
 =====================================
 
