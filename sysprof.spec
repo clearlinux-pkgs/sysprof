@@ -4,7 +4,7 @@
 #
 Name     : sysprof
 Version  : 3.46.0
-Release  : 19
+Release  : 20
 URL      : https://download.gnome.org/sources/sysprof/3.46/sysprof-3.46.0.tar.xz
 Source0  : https://download.gnome.org/sources/sysprof/3.46/sysprof-3.46.0.tar.xz
 Summary  : No detailed summary available
