@@ -1,3 +1,57 @@
+Overview of changes in Sysprof 3.46.0
+=====================================
+
+ * sysprof-cli is now statically linked
+ * sysprof-agent now has a --decode option to decode symbols at the end
+   of a capture, similar to what sysprof-cli can do.
+ * A crash in the Elf symbol resolver has been fixed.
+ * Translation updates
+
+Overview of changes in Sysprof 3.45.1
+=====================================
+
+This release of Sysprof is a development release and is not intended for
+end users.
+
+ * Addition of sysprof-agent to aid in cross-container profiling and
+   instrumentation. (Use -Dagent=(true|false) to control
+ * Additional porting to libadwaita
+ * Remove unused settings schemas
+ * Nightly Flatpak builds now use org.gnome.Sysprof.Devel as the
+   application-id
+ * The application now uses org.gnome.Sysprof as the application-id
+   instead of org.gnome.Sysprof3.
+ * Icon updates
+ * Translation updates
+
+Overview of changes in Sysprof 3.45.0
+=====================================
+
+This release of Sysprof is a development release and is not intended for
+end users.
+
+ * Initial port to GTK 4
+ * A number of build configuration options where simplified and will need
+   changing by distributions to match the new, more consistent, naming.
+ * Libadwaita has been added as a dependency
+ * The profiler assistant has received styling changes
+ * libsysprof-ui had it's ABI bumped to libsysprof-ui-5 which targets GTK 4.
+
+Overview of changes in Sysprof 3.44.0
+=====================================
+
+ * Translation updates
+
+Overview of changes in Sysprof 3.43.90
+======================================
+
+ * Require libunwind unless disabled manually to help ensure
+   distributions are doing the right thing.
+ * Add allocation leaks section to memprof.
+ * Fix preloading of speedtrack
+ * Fix capture of mapped path names with spaces
+ * Translation updates
+
 Overview of changes in Sysprof 3.42.1
 =====================================
 
