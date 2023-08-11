@@ -1,0 +1,4 @@
+3.48.0
+json-glib-dev
+pkgconfig(json-glib-1.0)
+pkgconfig(libadwaita-1)
