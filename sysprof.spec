@@ -4,13 +4,13 @@
 # Using build pattern: meson
 #
 Name     : sysprof
-Version  : 3.48.0
-Release  : 21
-URL      : https://download.gnome.org/sources/sysprof/3.48/sysprof-3.48.0.tar.xz
-Source0  : https://download.gnome.org/sources/sysprof/3.48/sysprof-3.48.0.tar.xz
+Version  : 45.0
+Release  : 22
+URL      : https://download.gnome.org/sources/sysprof/45/sysprof-45.0.tar.xz
+Source0  : https://download.gnome.org/sources/sysprof/45/sysprof-45.0.tar.xz
 Summary  : No detailed summary available
 Group    : Development/Tools
-License  : BSD-2-Clause-Patent GPL-2.0 GPL-3.0
+License  : Apache-2.0 BSD-2-Clause-Patent GPL-2.0 GPL-3.0
 Requires: sysprof-bin = %{version}-%{release}
 Requires: sysprof-data = %{version}-%{release}
 Requires: sysprof-lib = %{version}-%{release}
@@ -27,6 +27,8 @@ BuildRequires : libdazzle-dev
 BuildRequires : pkgconfig(json-glib-1.0)
 BuildRequires : pkgconfig(libadwaita-1)
 BuildRequires : pkgconfig(libdazzle-1.0)
+BuildRequires : pkgconfig(libdex-1)
+BuildRequires : pkgconfig(libpanel-1)
 BuildRequires : pkgconfig(libunwind-generic)
 BuildRequires : pkgconfig(polkit-gobject-1)
 BuildRequires : polkit-dev
@@ -135,10 +137,10 @@ staticdev components for the sysprof package.
 
 
 %prep
-%setup -q -n sysprof-3.48.0
-cd %{_builddir}/sysprof-3.48.0
+%setup -q -n sysprof-45.0
+cd %{_builddir}/sysprof-45.0
 pushd ..
-cp -a sysprof-3.48.0 buildavx2
+cp -a sysprof-45.0 buildavx2
 popd
 
 %build
@@ -146,7 +148,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1691794779
+export SOURCE_DATE_EPOCH=1695687522
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -171,7 +173,9 @@ meson test -C builddir --print-errorlogs || :
 mkdir -p %{buildroot}/usr/share/package-licenses/sysprof
 cp %{_builddir}/sysprof-%{version}/COPYING %{buildroot}/usr/share/package-licenses/sysprof/8624bcdae55baeef00cd11d5dfcfa60f68710a02 || :
 cp %{_builddir}/sysprof-%{version}/COPYING.gpl-2 %{buildroot}/usr/share/package-licenses/sysprof/dfac199a7539a404407098a2541b9482279f690d || :
+cp %{_builddir}/sysprof-%{version}/contrib/eggbitset/COPYING %{buildroot}/usr/share/package-licenses/sysprof/2b8b815229aa8a61e483fb4ba0588b8b6c491890 || :
 cp %{_builddir}/sysprof-%{version}/src/libsysprof-capture/COPYING %{buildroot}/usr/share/package-licenses/sysprof/f0464855038f72585350235098599184ac3b3810 || :
+cp %{_builddir}/sysprof-%{version}/src/libsysprof/timsort/COPYING %{buildroot}/usr/share/package-licenses/sysprof/2b8b815229aa8a61e483fb4ba0588b8b6c491890 || :
 DESTDIR=%{buildroot}-v3 ninja -C builddiravx2 install
 DESTDIR=%{buildroot} ninja -C builddir install
 %find_lang sysprof
@@ -193,12 +197,9 @@ DESTDIR=%{buildroot} ninja -C builddir install
 %defattr(-,root,root,-)
 /usr/share/applications/org.gnome.Sysprof.desktop
 /usr/share/dbus-1/interfaces/org.gnome.Sysprof.Agent.xml
-/usr/share/dbus-1/interfaces/org.gnome.Sysprof2.xml
 /usr/share/dbus-1/interfaces/org.gnome.Sysprof3.Profiler.xml
 /usr/share/dbus-1/interfaces/org.gnome.Sysprof3.Service.xml
-/usr/share/dbus-1/system-services/org.gnome.Sysprof2.service
 /usr/share/dbus-1/system-services/org.gnome.Sysprof3.service
-/usr/share/dbus-1/system.d/org.gnome.Sysprof2.conf
 /usr/share/dbus-1/system.d/org.gnome.Sysprof3.conf
 /usr/share/icons/hicolor/scalable/actions/sysprof-allocations.svg
 /usr/share/icons/hicolor/scalable/actions/sysprof-battery.svg
@@ -220,67 +221,84 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files dev
 %defattr(-,root,root,-)
-/usr/include/sysprof-4/sysprof-address.h
-/usr/include/sysprof-4/sysprof-battery-source.h
-/usr/include/sysprof-4/sysprof-callgraph-profile.h
-/usr/include/sysprof-4/sysprof-capture-autocleanups.h
-/usr/include/sysprof-4/sysprof-capture-condition.h
-/usr/include/sysprof-4/sysprof-capture-cursor.h
-/usr/include/sysprof-4/sysprof-capture-gobject.h
-/usr/include/sysprof-4/sysprof-capture-reader.h
-/usr/include/sysprof-4/sysprof-capture-symbol-resolver.h
-/usr/include/sysprof-4/sysprof-capture-types.h
-/usr/include/sysprof-4/sysprof-capture-writer.h
-/usr/include/sysprof-4/sysprof-capture.h
-/usr/include/sysprof-4/sysprof-clock.h
-/usr/include/sysprof-4/sysprof-collector.h
-/usr/include/sysprof-4/sysprof-control-source.h
-/usr/include/sysprof-4/sysprof-diskstat-source.h
-/usr/include/sysprof-4/sysprof-elf-symbol-resolver.h
-/usr/include/sysprof-4/sysprof-gjs-source.h
-/usr/include/sysprof-4/sysprof-governor-source.h
-/usr/include/sysprof-4/sysprof-hostinfo-source.h
-/usr/include/sysprof-4/sysprof-jitmap-symbol-resolver.h
-/usr/include/sysprof-4/sysprof-kernel-symbol-resolver.h
-/usr/include/sysprof-4/sysprof-kernel-symbol.h
-/usr/include/sysprof-4/sysprof-local-profiler.h
-/usr/include/sysprof-4/sysprof-macros.h
-/usr/include/sysprof-4/sysprof-memory-source.h
-/usr/include/sysprof-4/sysprof-memprof-profile.h
-/usr/include/sysprof-4/sysprof-memprof-source.h
-/usr/include/sysprof-4/sysprof-netdev-source.h
-/usr/include/sysprof-4/sysprof-perf-counter.h
-/usr/include/sysprof-4/sysprof-perf-source.h
-/usr/include/sysprof-4/sysprof-platform.h
-/usr/include/sysprof-4/sysprof-preload-source.h
-/usr/include/sysprof-4/sysprof-proc-source.h
-/usr/include/sysprof-4/sysprof-process-model-item.h
-/usr/include/sysprof-4/sysprof-process-model.h
-/usr/include/sysprof-4/sysprof-profile.h
-/usr/include/sysprof-4/sysprof-profiler.h
-/usr/include/sysprof-4/sysprof-proxy-source.h
-/usr/include/sysprof-4/sysprof-selection.h
-/usr/include/sysprof-4/sysprof-source.h
-/usr/include/sysprof-4/sysprof-spawnable.h
-/usr/include/sysprof-4/sysprof-symbol-resolver.h
-/usr/include/sysprof-4/sysprof-symbols-source.h
-/usr/include/sysprof-4/sysprof-tracefd-source.h
-/usr/include/sysprof-4/sysprof-version-macros.h
-/usr/include/sysprof-4/sysprof-version.h
-/usr/include/sysprof-4/sysprof.h
-/usr/include/sysprof-ui-5/sysprof-check.h
-/usr/include/sysprof-ui-5/sysprof-display.h
-/usr/include/sysprof-ui-5/sysprof-model-filter.h
-/usr/include/sysprof-ui-5/sysprof-notebook.h
-/usr/include/sysprof-ui-5/sysprof-page.h
-/usr/include/sysprof-ui-5/sysprof-process-model-row.h
-/usr/include/sysprof-ui-5/sysprof-ui.h
-/usr/include/sysprof-ui-5/sysprof-visualizer-group.h
-/usr/include/sysprof-ui-5/sysprof-visualizer.h
-/usr/include/sysprof-ui-5/sysprof-zoom-manager.h
-/usr/lib64/pkgconfig/sysprof-4.pc
+/usr/include/sysprof-6/sysprof-address.h
+/usr/include/sysprof-6/sysprof-battery-charge.h
+/usr/include/sysprof-6/sysprof-bundled-symbolizer.h
+/usr/include/sysprof-6/sysprof-callgraph-frame.h
+/usr/include/sysprof-6/sysprof-callgraph-symbol.h
+/usr/include/sysprof-6/sysprof-callgraph.h
+/usr/include/sysprof-6/sysprof-capture-condition.h
+/usr/include/sysprof-6/sysprof-capture-cursor.h
+/usr/include/sysprof-6/sysprof-capture-reader.h
+/usr/include/sysprof-6/sysprof-capture-types.h
+/usr/include/sysprof-6/sysprof-capture-writer.h
+/usr/include/sysprof-6/sysprof-capture.h
+/usr/include/sysprof-6/sysprof-category-summary.h
+/usr/include/sysprof-6/sysprof-clock.h
+/usr/include/sysprof-6/sysprof-collector.h
+/usr/include/sysprof-6/sysprof-cpu-info.h
+/usr/include/sysprof-6/sysprof-cpu-usage.h
+/usr/include/sysprof-6/sysprof-dbus-monitor.h
+/usr/include/sysprof-6/sysprof-diagnostic.h
+/usr/include/sysprof-6/sysprof-disk-usage.h
+/usr/include/sysprof-6/sysprof-document-allocation.h
+/usr/include/sysprof-6/sysprof-document-counter-value.h
+/usr/include/sysprof-6/sysprof-document-counter.h
+/usr/include/sysprof-6/sysprof-document-ctrdef.h
+/usr/include/sysprof-6/sysprof-document-ctrset.h
+/usr/include/sysprof-6/sysprof-document-dbus-message.h
+/usr/include/sysprof-6/sysprof-document-exit.h
+/usr/include/sysprof-6/sysprof-document-file-chunk.h
+/usr/include/sysprof-6/sysprof-document-file.h
+/usr/include/sysprof-6/sysprof-document-fork.h
+/usr/include/sysprof-6/sysprof-document-frame.h
+/usr/include/sysprof-6/sysprof-document-jitmap.h
+/usr/include/sysprof-6/sysprof-document-loader.h
+/usr/include/sysprof-6/sysprof-document-log.h
+/usr/include/sysprof-6/sysprof-document-mark.h
+/usr/include/sysprof-6/sysprof-document-metadata.h
+/usr/include/sysprof-6/sysprof-document-mmap.h
+/usr/include/sysprof-6/sysprof-document-overlay.h
+/usr/include/sysprof-6/sysprof-document-process.h
+/usr/include/sysprof-6/sysprof-document-sample.h
+/usr/include/sysprof-6/sysprof-document-traceable.h
+/usr/include/sysprof-6/sysprof-document.h
+/usr/include/sysprof-6/sysprof-elf-symbolizer.h
+/usr/include/sysprof-6/sysprof-energy-usage.h
+/usr/include/sysprof-6/sysprof-enums.h
+/usr/include/sysprof-6/sysprof-instrument.h
+/usr/include/sysprof-6/sysprof-jitmap-symbolizer.h
+/usr/include/sysprof-6/sysprof-kallsyms-symbolizer.h
+/usr/include/sysprof-6/sysprof-macros.h
+/usr/include/sysprof-6/sysprof-malloc-tracing.h
+/usr/include/sysprof-6/sysprof-mark-catalog.h
+/usr/include/sysprof-6/sysprof-memory-usage.h
+/usr/include/sysprof-6/sysprof-mount.h
+/usr/include/sysprof-6/sysprof-multi-symbolizer.h
+/usr/include/sysprof-6/sysprof-network-usage.h
+/usr/include/sysprof-6/sysprof-no-symbolizer.h
+/usr/include/sysprof-6/sysprof-platform.h
+/usr/include/sysprof-6/sysprof-power-profile.h
+/usr/include/sysprof-6/sysprof-profiler.h
+/usr/include/sysprof-6/sysprof-proxied-instrument.h
+/usr/include/sysprof-6/sysprof-recording.h
+/usr/include/sysprof-6/sysprof-sampler.h
+/usr/include/sysprof-6/sysprof-scheduler-details.h
+/usr/include/sysprof-6/sysprof-spawnable.h
+/usr/include/sysprof-6/sysprof-subprocess-output.h
+/usr/include/sysprof-6/sysprof-symbol.h
+/usr/include/sysprof-6/sysprof-symbolizer.h
+/usr/include/sysprof-6/sysprof-symbols-bundle.h
+/usr/include/sysprof-6/sysprof-system-logs.h
+/usr/include/sysprof-6/sysprof-thread-info.h
+/usr/include/sysprof-6/sysprof-time-span.h
+/usr/include/sysprof-6/sysprof-tracefd-consumer.h
+/usr/include/sysprof-6/sysprof-tracer.h
+/usr/include/sysprof-6/sysprof-version-macros.h
+/usr/include/sysprof-6/sysprof-version.h
+/usr/include/sysprof-6/sysprof.h
+/usr/lib64/pkgconfig/sysprof-6.pc
 /usr/lib64/pkgconfig/sysprof-capture-4.pc
-/usr/lib64/pkgconfig/sysprof-ui-5.pc
 
 %files doc
 %defattr(0644,root,root,0755)
@@ -326,12 +344,24 @@ DESTDIR=%{buildroot} ninja -C builddir install
 /usr/share/help/es/sysprof/introduction.page
 /usr/share/help/es/sysprof/legal.xml
 /usr/share/help/es/sysprof/profiling.page
+/usr/share/help/hu/sysprof/faq.page
+/usr/share/help/hu/sysprof/figures/Sysprof.svg
+/usr/share/help/hu/sysprof/index.page
+/usr/share/help/hu/sysprof/introduction.page
+/usr/share/help/hu/sysprof/legal.xml
+/usr/share/help/hu/sysprof/profiling.page
 /usr/share/help/id/sysprof/faq.page
 /usr/share/help/id/sysprof/figures/Sysprof.svg
 /usr/share/help/id/sysprof/index.page
 /usr/share/help/id/sysprof/introduction.page
 /usr/share/help/id/sysprof/legal.xml
 /usr/share/help/id/sysprof/profiling.page
+/usr/share/help/ko/sysprof/faq.page
+/usr/share/help/ko/sysprof/figures/Sysprof.svg
+/usr/share/help/ko/sysprof/index.page
+/usr/share/help/ko/sysprof/introduction.page
+/usr/share/help/ko/sysprof/legal.xml
+/usr/share/help/ko/sysprof/profiling.page
 /usr/share/help/pl/sysprof/faq.page
 /usr/share/help/pl/sysprof/figures/Sysprof.svg
 /usr/share/help/pl/sysprof/index.page
@@ -365,14 +395,16 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files lib
 %defattr(-,root,root,-)
-/V3/usr/lib64/libsysprof-4.so
-/V3/usr/lib64/libsysprof-memory-4.so
-/V3/usr/lib64/libsysprof-speedtrack-4.so
-/V3/usr/lib64/libsysprof-ui-5.so
-/usr/lib64/libsysprof-4.so
-/usr/lib64/libsysprof-memory-4.so
-/usr/lib64/libsysprof-speedtrack-4.so
-/usr/lib64/libsysprof-ui-5.so
+/V3/usr/lib64/libsysprof-6.so.6.0.0
+/V3/usr/lib64/libsysprof-memory-6.so
+/V3/usr/lib64/libsysprof-speedtrack-6.so
+/V3/usr/lib64/libsysprof-tracer-6.so
+/usr/lib64/libsysprof-6.so
+/usr/lib64/libsysprof-6.so.6
+/usr/lib64/libsysprof-6.so.6.0.0
+/usr/lib64/libsysprof-memory-6.so
+/usr/lib64/libsysprof-speedtrack-6.so
+/usr/lib64/libsysprof-tracer-6.so
 
 %files libexec
 %defattr(-,root,root,-)
@@ -381,13 +413,13 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files license
 %defattr(0644,root,root,0755)
+/usr/share/package-licenses/sysprof/2b8b815229aa8a61e483fb4ba0588b8b6c491890
 /usr/share/package-licenses/sysprof/8624bcdae55baeef00cd11d5dfcfa60f68710a02
 /usr/share/package-licenses/sysprof/dfac199a7539a404407098a2541b9482279f690d
 /usr/share/package-licenses/sysprof/f0464855038f72585350235098599184ac3b3810
 
 %files services
 %defattr(-,root,root,-)
-/usr/lib/systemd/system/sysprof2.service
 /usr/lib/systemd/system/sysprof3.service
 
 %files staticdev

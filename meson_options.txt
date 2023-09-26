@@ -1,15 +1,12 @@
 # If this is a development build, which is used for our Flatpak build
 # so that we have a different app-id (.Devel suffix) than the regular
 # application.
-option('development', type: 'boolean', value: 'false')
+option('development', type: 'boolean', value: false)
 
 # Optionally disable the GTK application in case you're building the
 # sysprof-cli only for your platform. Might be useful in IoT or various
 # server scenarios.
 option('gtk', type: 'boolean')
-
-# Disable libsysprof/ui (in situations you only want sysprof-capture)
-option('libsysprof', type: 'boolean')
 
 # Allow disabling the installation of libsysprof-capture*.a
 option('install-static', type: 'boolean')
@@ -29,17 +26,11 @@ option('systemdunitdir', type: 'string',
   description: 'Directory for systemd service files'
 )
 
-# An optional location to specify where to locate debug information. This
-# is useful for distributions to set based on their debuginfo setup.
-option('debugdir', type: 'string',
-  description: 'Look for global separate debug info in this path'
-)
-
 # If Yelp documentation should be installed
 option('help', type: 'boolean')
 
-# Disable use of libunwind
-option('libunwind', type: 'boolean')
+# Build libsysprof (required by tools, tests, sysprof, etc)
+option('libsysprof', type: 'boolean')
 
 # Optionally disable the tools (this is mostly only useful for building only
 # libsysprof-capture as a subproject)
@@ -52,7 +43,3 @@ option('tests', type: 'boolean')
 # Optionally disable the examples (this is mostly only useful for building only
 # libsysprof-capture as a subproject)
 option('examples', type: 'boolean')
-
-# Optionally build the sysprof-agent tool to allow profiling inside of
-# containers from external system
-option('agent', type: 'boolean', description: 'Build the sysprof-agent utility')

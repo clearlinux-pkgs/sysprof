@@ -1,4 +1,6 @@
-3.48.0
+45.0
 json-glib-dev
 pkgconfig(json-glib-1.0)
 pkgconfig(libadwaita-1)
+pkgconfig(libdex-1)
+pkgconfig(libpanel-1)
