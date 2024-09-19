@@ -1,3 +1,38 @@
+Overview of changes in Sysprof 47.0
+===================================
+
+ * Speed up capture loading using gtk_tim_sort().
+ * Speed up capture loading using a private bump allocator
+   for callgraph nodes.
+ * Use AdwAboutDialog.
+ * Add GIO and Mutter to graphics section.
+ * Fix use of tracefd on some child processes.
+ * Fix some use of blocking FDs.
+ * Collapse some recursive functions in callgraphs.
+ * Improve styling of waterfall labels.
+ * Allow polkit to be optional in some situations.
+ * Translation updates.
+
+Overview of changes in Sysprof 47.beta
+======================================
+
+Changes in this release:
+
+ * Recording window can now be dragged by clicking
+   anywhere but the stop button.
+ * Various coverity warning fixes.
+ * Translation updates.
+
+Overview of changes in Sysprof 47.alpha
+=======================================
+
+Changes in this release:
+
+ * Style improvements to match libadwaita 1.6 and libpanel 1.7.
+ * Various chart drawing fixes.
+ * Build fixes.
+ * Translation updates
+
 Overview of changes in Sysprof 46.0
 ===================================
 
