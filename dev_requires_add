@@ -1,0 +1,1 @@
+sysprof-staticdev = %{version}-%{release}
