@@ -1,3 +1,23 @@
+Overview of changes in Sysprof 47.2
+===================================
+
+ * Use pid when generating counter IDs in SysprofCollector
+ * Fix potential UB in GtkBitset
+ * Avoid UB in bsearch() with no data
+ * Increased safety in SysprofDocumentLoader
+ * Increased safety when parsing CPU counters with async IO
+
+Overview of changes in Sysprof 47.1
+===================================
+
+ * Webkit counter fixes
+ * Add a lost counter for dropped perf events
+ * Deprecation fixes for GTK
+ * Ignore -1 for CPU/PID in log cells
+ * Reduce glib build requirement
+ * Ensure dbus-monitor exits after capturing
+ * Translation updates
+
 Overview of changes in Sysprof 47.0
 ===================================
 
