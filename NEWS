@@ -1,22 +1,35 @@
-Overview of changes in Sysprof 47.2
+Overview of changes in Sysprof 48.0
 ===================================
 
- * Use pid when generating counter IDs in SysprofCollector
- * Fix potential UB in GtkBitset
- * Avoid UB in bsearch() with no data
- * Increased safety in SysprofDocumentLoader
- * Increased safety when parsing CPU counters with async IO
-
-Overview of changes in Sysprof 47.1
-===================================
-
- * Webkit counter fixes
- * Add a lost counter for dropped perf events
- * Deprecation fixes for GTK
- * Ignore -1 for CPU/PID in log cells
- * Reduce glib build requirement
- * Ensure dbus-monitor exits after capturing
  * Translation updates
+
+Overview of changes in Sysprof 48.rc
+====================================
+
+ * Fix drawing of Y-reversed data point markers
+ * Make greeter save environment variables to state file for reuse
+ * Use D-Bus power profiles bus name rather than legacy D-Bus bus name
+ * Translation updates
+
+Overview of changes in Sysprof 48.beta
+======================================
+
+ * Ensure local dbus-monitor is reaped after capturing
+ * Modernization for various GTK deprecations
+ * Add new symbolizer for debuginfod which is enabled by default
+ * Many performance improvements for capture loading
+ * Support for unwinding without frame-pointers on distributions
+   lacking -fno-omit-frame-pointer at the toolchain level. This
+   uses a new "sysprof-live-unwinder" elevated helper process
+   which takes data from perf and unwinds the stack as soon as
+   it can without capturing the perf data to disk.
+   Thank you to Red Hat and the tools team for enabling this
+   work for RHEL.
+ * The greeter now persists your settings and restores them the
+   next time you run Sysprof.
+ * Various graph drawing improvements.
+ * Fixes for time display in various formats.
+ * Translation updates.
 
 Overview of changes in Sysprof 47.0
 ===================================
